@@ -46,7 +46,7 @@ class Grid {
 
 
 
-    getData(parameters, callback) {
+    getRows(parameters, callback) {
         var gridId = this.gridId;
         var authId = this.authId;
         var rest = this.rest;
@@ -124,7 +124,11 @@ class Grid {
                 if (errorMessage) {
                     console.log(errorMessage);
                 } else {
-                    callback(response.body.rows);
+                    if (response.body.rows == undefined) {
+                        callback("your request did not return any results. please review your parameters");
+                    } else {
+                        callback(response.body.rows);
+                    }
                 }
             });
         });
@@ -215,7 +219,11 @@ class Grid {
                         if (errorMessage) {
                             console.log(errorMessage);
                         } else {
-                            console.log(response.body.rows)
+                            if (response.body.rows == undefined) {
+                                callback("your request did not return any results. please review your parameters");
+                            } else {
+                                callback(response.body.rows);
+                            }
                         }
                     });
                 }
