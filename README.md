@@ -1,20 +1,21 @@
-# Java library for BigParser
+# Node JS library for BigParser
 
-Java library for BigParser's API to fetch data from grids.
+Node JS library for BigParser's API to fetch data from grids.
 
 
 ## How to Install the package?
-Add maven dependency here
+To install bigparser just type the following command in terminal:
 
- 
+```python
+$ npm install bigparser
+```
 
 ## How to Import bigparser module into your code?
 
-Add these two statements
+Add this statement
 
-```java
-import bigparser.Auth;
-import bigparser.Grid;
+```javascript
+var bigparser = require('bigparser')
 ```
 
 **Available Methods:**
