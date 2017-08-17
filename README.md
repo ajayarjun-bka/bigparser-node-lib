@@ -129,7 +129,8 @@ System.out.println(result);
    
    `password` - password to login into BigParser account
    
-   `callback` - Function to be  executed after completion of login
+   `callback` - function contiaining tasks to be performed after login
+   
 ---
 
 ### Description of Available Grid methods:
