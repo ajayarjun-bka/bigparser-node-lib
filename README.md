@@ -15,7 +15,7 @@ $ npm install bigparser
 Add this statement
 
 ```javascript
-var bigparser = require('bigparser')
+const grid = require('bigparser')
 ```
 
 **Available Methods:**
@@ -42,73 +42,38 @@ Fetching Data from BigParser involves 3 simple steps
 In order to fetch data the user should first login into BigParser account using the *login()* method
 
 #### Example
-```java
-import bigparser.Auth;
-import bigparser.Grid;
+```javascript
+const Grid = require('bigparser')
+var movies = new Grid("username", "password", 'gridId',function(){});
 
-String authId = Auth.login("emailId", "password");
 ```
-authId has to be passed in whenever a grid Object is created 
+The empty function is supposed to perform tasks on grid after authentication.Please follow on the  next step to understand clearly
+
 ### Step 2:
 
 Create a object for the grid from which you wish to fetch data.
 
-```java
-import bigparser.Auth;
-import bigparser.Grid;
-
-
-String gridId = "57a34c80e4b017cc76c37c25";
-
-String authId = Auth.login("emailId", "password");
-
-Grid movies = new Grid(authId, gridId);
+```javascript
+const Grid = require('bigparser')
+var movies = new Grid("username", "password", 'gridId',function(){
+    movies.getRows({'rowCount': '4', 'search': {global: ["X-men","x-men 2"]}, columns:["film Name ","year"]}, function(rows){ console.log(rows);});
+    });
 
 ```
 
 The gridId from which you wish to fetch the data must be specified by the user. *[Here gridId of the "Movie Beta" grid has been used]*  
-### Step 3:
-```java
-import bigparser.Auth;
-import bigparser.Grid;
 
-
-String gridId = "57a34c80e4b017cc76c37c25";
-
-String authId = Auth.login("emailId", "password");
-
-Grid movies = new Grid(authId, gridId);
-
-List<String> result = new ArrayList<String>();
-    
-// Build search filter
-Map<String, String> searchfilter = new HashMap<String, String>();
-searchfilter.put("GLOBAL", "x-men");
-searchfilter.put("year", "2000,2016");
-searchfilter.put("language ", "English");
-
-//Build Sort 
-Map<String, String> sort = new HashMap<String, String>();
-sort.put("filmname ", "ASC");
-sort.put("year", "DSC");
-
-
-//columns to be displayed 
-String columns = "film name ,year";
-
-
-result = movies.getRows(20,searchfilter, sort, columns);
-System.out.println(result);
-```
 **Sample Output**
 
 *returns a list of rows.*
 
-```java
+```javascript
 [
-  ["X-Men: Apocalypse","2016"],
-  ["Ex-Men ","2016"],
-  ["X-Men","2000"]
+  { data: [ 'X-Men: Apocalypse', '2016' ], successful: true },
+  { data: [ 'Warcraft', '2016' ], successful: true },
+  { data: [ 'Captain America: Civil War', '2016' ],
+    successful: true },
+  { data: [ 'The Do-Over', '2016' ], successful: true }
 ]
 ```
 ---
@@ -250,13 +215,17 @@ Here "year" is the column name and the value can be "ASC" for ascending order an
 
 *Replace emailId and password in the login function*
 
-```java
+```javascript
 const Grid = require('bigparser')
-var movies = new Grid("arjun.bka@gmail.com", "AjayArjun", '57a34c80e4b017cc76c37c25', function () {
-    movies.getHeaders(function(rows){ console.log(rows);})
-    movies.getLastRow({'rowCount': '2', 'search': {"IteM NaMe": ["Bar"]},"columns":["film Name ","year"]}, function(rows){ console.log(rows);})
-    movies.getRows({'rowCount': '50', 'search': {global: ["X-men","x-men 2"]}, columns:["film Name ","year"]}, function(rows){ console.log(rows);})
-});
+var movies = new Grid("username", "password", 'gridId',function(){
+    
+    movies.getHeaders(function(rows){ console.log(rows);});
+   
+    movies.getRows({'rowCount': '4', 'search': {global: ["X-men","x-men 2"]}, columns:["film Name ","year"]}, function(rows){ console.log(rows);});
+    
+    movies.getLastRow({'rowCount': '2', 'search': {"IteM NaMe": ["Bar"]},"columns":["film Name ","year"]}, function(rows){ console.log(rows);});
+    
+    });
 
 ```
 ___

@@ -6,7 +6,7 @@ class Grid {
         this.password = password;
         this.gridId = gridId;
         this.login(email, password, function (authId) {
-            callback(authId)
+            callback()
         })
     }
 

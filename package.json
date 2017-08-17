@@ -1,6 +1,6 @@
 {
   "name": "bigparser",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "script to make api calls and consume data",
   "main": "index.js",
   "scripts": {
