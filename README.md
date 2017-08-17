@@ -39,7 +39,7 @@ Fetching Data from BigParser involves 3 simple steps
 
 
 ### Step 1:
-In order to fetch data the user should first login into BigParser account using the *login()* method
+In order to fetch the data, the user should import the grid class and create a grid object.
 
 #### Example
 ```javascript
@@ -47,17 +47,19 @@ const Grid = require('bigparser')
 var movies = new Grid("username", "password", 'gridId',function(){});
 
 ```
-The empty function is supposed to perform tasks on grid after authentication.Please follow on the  next step to understand clearly
+Whenever a call is made to the BigParser API, a callback must be provided. This callback should include the next lines of the code.
 
 ### Step 2:
 
-Create a object for the grid from which you wish to fetch data.
+To get the rows from the grid call the getRows function inside the callback of the previous line. 
 
 ```javascript
 const Grid = require('bigparser')
 var movies = new Grid("username", "password", 'gridId',function(){
-    movies.getRows({'rowCount': '4', 'search': {global: ["X-men","x-men 2"]}, columns:["film Name ","year"]}, function(rows){ console.log(rows);});
+    movies.getRows({'rowCount': '4', 'search': {global: ["X-men","x-men 2"]}, columns:["film Name ","year"]}, function(rows){          
+         console.log(rows);
     });
+});
 
 ```
 
