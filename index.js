@@ -62,9 +62,9 @@ class Grid {
                             }
                         }
                     }
-                    if (parameters.search.hasOwnProperty('global')) {
-                        parameters.keywords = parameters.search.global;
-                        delete parameters.search.global;
+                    if (parameters.search.hasOwnProperty('GLOBAL')) {
+                        parameters.keywords = parameters.search.GLOBAL;
+                        delete parameters.search.GLOBAL;
                     }
                     parameters.search = data;
                     if (Object.keys(parameters.search).length != 0) {
@@ -150,9 +150,9 @@ class Grid {
                             }
                         }
                     }
-                    if (parameters.search.hasOwnProperty('global')) {
-                        parameters.keywords = parameters.search.global;
-                        delete parameters.search.global;
+                    if (parameters.search.hasOwnProperty('GLOBAL')) {
+                        parameters.keywords = parameters.search.GLOBAL;
+                        delete parameters.search.GLOBAL;
                     }
                     parameters.search = data;
                     if (Object.keys(parameters.search).length != 0) {
