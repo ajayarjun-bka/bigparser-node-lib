@@ -117,7 +117,7 @@ System.out.println(result);
 
 ### login
 ```java
- login(emailId,password)
+ login(emailId,password,callback)
 ```
 *Logs into a BigParser account and returns the authId*
 
@@ -129,114 +129,119 @@ System.out.println(result);
    
    `password` - password to login into BigParser account
    
----
-### Description of Grid Constructor:
-
-
-```java
-Grid movies = new Grid(authId, gridId);
-```
-*Creates a Grid Object*
-
-**Parameters**
-
-#### ***Required Parameters:***
- 
-   `authId` - authId of you account retreived from login method
-   
-   `gridId` - gridId of your grid. It can be found in the url of the grid.
-   
+   `callback` - Function to be  executed after completion of login
 ---
 
 ### Description of Available Grid methods:
 
 
 ### getRows
-```java
- getRows(rows,searchFilter,sort,columns)
+```javascript
+ getRows(data, callback)
 ```
 *Fetches rows from the grid*
 
-This method has 4 different signatures
-
-* getRows(Integer rows)
-
-* getRows(Integer rows, Map<String, String> searchFilter)
-
-* getRows(Integer rows, Map<String, String> searchFilter, Map<String, String> sort)
-
-* getRows(Integer rows, Map<String, String> searchFilter, Map<String, String> sort, String columns)
-
-
 **Parameters**
 
-#### ***Optional Parameters:***
- 
-   `rows` - Number of rows to be fetched from the matching resuslts
+`data` - comprises the options to query the grid in the form of JSON object.
    
-    `searchFilter` - Map containing global level searches and column level searches
-        
-  ```java
-       {"GLOBAL": "x-men", "language ": "english,French"}
-  ```
+`callback` - callback function to handle the response.
+   
+   ***List of allowed options in data parameter***
+   
+* `rowCount`  - *required* - No of rows to fetch. If value not provided then default is 10
+
+* `search` - *optional* - JSON object containing global level and column level filters
+
+  **sample format**
+
+```javascript
+   {
+   'search':{
+     GLOBAL: ["X-men"],
+     year: ["2000", "2016"]}
+   }
+```
     
 Anything that has to be searched on a global level should go in to the list under the key "GLOBAL". Terms which are to be searched within columns should be specified as key and value(s) where key is the column name and value(s) is the term(s) to be searched.
 
-   `sort` - Map containing the columns to be sorted and their order 
+   `sort` - JSON object containing the columns to be sorted and their order 
    
-  ```java
-       {"year": "ASC"}
+  ```javascript
+       {
+       "sort":{"year": "ASC","film Name ": "DSC"}
+       }
   ```
     
 Here "year" is the column name and the value can be "ASC" for ascending order and "DSC" for descending order.
    
-   `columns` - String  of columns seperated by comma(,) to be fetched from the grid
+   `columns` - array of columns to be selected from the grid
    
-```java
-       "film name ,release date"
+```javascript
+       {
+       columns:["film Name ","year"]
+      }  
   ```
 ---
 
 
 ### getHeaders
-```java
- getHeaders()
+```javascript
+ getHeaders(callback)
 ```
 *Fetches headers of the specified grid*
 
+**Parameters**
+
+`callback` - callback function to handle the response.
+   
 ---
 ### getLastRow
-```java
- getRow(count,searchFilter,sort,columns)
+```javascript
+ getLastRow(parameters,callback)
 ```
 *Fetches rows from the grid*
 
 **Parameters**
 
-#### ***Optional Parameters:***
- 
-   `count` - Number of rows to be fetched from the bottom of the matching resuslts
+`data` - comprises the options to query the grid in the form of JSON object.
    
-   `searchFilter` - Map containing global level searches and column level searches
-        
-  ```java
-       {"GLOBAL": "x-men", "language ": "english,French"}
-  ```
+`callback` - callback function to handle the response.
+   
+   ***List of allowed options in data parameter***
+   
+* `rowCount`  - *required* - No of rows to fetch. If value not provided then default is 10
+
+* `search` - *optional* - JSON object containing global level and column level filters
+
+  **sample format**
+
+```javascript
+   {
+   'search':{
+     GLOBAL: ["X-men"],
+     year: ["2000", "2016"]}
+   }
+```
     
 Anything that has to be searched on a global level should go in to the list under the key "GLOBAL". Terms which are to be searched within columns should be specified as key and value(s) where key is the column name and value(s) is the term(s) to be searched.
 
-   `sort` - Map containing the columns to be sorted and their order 
+   `sort` - JSON object containing the columns to be sorted and their order 
    
-  ```java
-       {"year": "ASC"}
+  ```javascript
+       {
+       "sort":{"year": "ASC","film Name ": "DSC"}
+       }
   ```
     
 Here "year" is the column name and the value can be "ASC" for ascending order and "DSC" for descending order.
    
-   `columns` - String  of columns seperated by comma(,) to be fetched from the grid
+   `columns` - array of columns to be selected from the grid
    
-```java
-       "film name ,release date"
+```javascript
+       {
+       columns:["film Name ","year"]
+      }  
   ```
 ****
 
@@ -245,46 +250,12 @@ Here "year" is the column name and the value can be "ASC" for ascending order an
 *Replace emailId and password in the login function*
 
 ```java
-public class App {
-
-	public static void main(String args[]) {
-		String gridId = "57a34c80e4b017cc76c37c25";
-		String authId = Auth.login("emailId", "password");
-		Grid movies = new Grid(authId, gridId);
-		List<String> result = new ArrayList<String>();
-
-		// Build search filter
-		Map<String, String> searchfilter = new HashMap<String, String>();
-		searchfilter.put("GLOBAL", "x-men");
-		searchfilter.put("year", "2000,2016");
-		searchfilter.put("language ", "English");
-
-		// Build Sort
-		Map<String, String> sort = new HashMap<String, String>();
-		sort.put("filmname ", "ASC");
-		sort.put("year", "DSC");
-
-		// columns to be displayed
-		String columns = "film name ,year";
-
-		result = movies.getRows();
-		System.out.println(result);
-
-		result = movies.getRows(20, null, null, columns);
-		System.out.println(result);
-
-		result = movies.getRows(null, searchfilter, sort, columns);
-		System.out.println(result);
-
-		Map<String, String> headers = new HashMap<>();
-		headers = movies.getHeaders();
-		System.out.println(headers);
-
-		result = movies.getLastRow(searchfilter, null, columns, 4);
-		System.out.println(result);
-	}
-}
-
+const Grid = require('bigparser')
+var movies = new Grid("arjun.bka@gmail.com", "AjayArjun", '57a34c80e4b017cc76c37c25', function () {
+    movies.getHeaders(function(rows){ console.log(rows);})
+    movies.getLastRow({'rowCount': '2', 'search': {"IteM NaMe": ["Bar"]},"columns":["film Name ","year"]}, function(rows){ console.log(rows);})
+    movies.getRows({'rowCount': '50', 'search': {global: ["X-men","x-men 2"]}, columns:["film Name ","year"]}, function(rows){ console.log(rows);})
+});
 
 ```
 ___
