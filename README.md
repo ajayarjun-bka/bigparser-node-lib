@@ -29,7 +29,7 @@ const grid = require('bigparser')
 
 ## How to Fetch Data?
 
-Fetching Data from BigParser involves 3 simple steps
+Fetching Data from BigParser involves 2 simple steps
 
 **1**.Login into your BigParser account.
 
@@ -220,9 +220,9 @@ var movies = new Grid("username", "password", 'gridId',function(){
     
     movies.getHeaders(function(rows){ console.log(rows);});
    
-    movies.getRows({'rowCount': '4', 'search': {global: ["X-men","x-men 2"]}, columns:["film Name ","year"]}, function(rows){ console.log(rows);});
+    movies.getRows({'rowCount': '4', 'search': {GLOBAL: ["X-men","x-men 2"]}, columns:["film Name ","year"]}, function(rows){ console.log(rows);});
     
-    movies.getLastRow({'rowCount': '2', 'search': {"IteM NaMe": ["Bar"]},"columns":["film Name ","year"]}, function(rows){ console.log(rows);});
+    movies.getLastRow({'rowCount': '2', 'search': {"Item Name": ["Bar"]},"columns":["film Name ","year"]}, function(rows){ console.log(rows);});
     
     });
 
