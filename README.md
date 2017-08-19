@@ -33,9 +33,8 @@ Fetching Data from BigParser involves 3 simple steps
 
 **1**.Login into your BigParser account.
 
-**2**.Create an Object for the grid from which you wish to fetch data
+**2**.Create an Object for the grid from which you wish to fetch data and pass in the operations you wish to perform on the grid into callback function. Refer the examples below.
 
-**3**.Perform operation  the object to fetch data.
 
 
 ### Step 1:
